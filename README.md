@@ -8,7 +8,7 @@ To use shellcode files, take the .s file, assemble and link to produce binary as
 
 
 `$ as reverse_shell.s -o reverse_shell.o `  
-`$ ld reverse_shell.o -o reverse_shell `  
+`$ ld -N reverse_shell.o -o reverse_shell `  
 `$ ./reverse_shell `  
 
 To get the assembly, use objdump and extract the bytecode eg.
